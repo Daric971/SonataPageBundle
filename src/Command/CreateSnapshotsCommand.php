@@ -27,6 +27,8 @@ use Symfony\Component\Process\Process;
  */
 class CreateSnapshotsCommand extends BaseCommand
 {
+    protected static $defaultName = 'sonata:page:create-snapshots';
+
     public function configure(): void
     {
         $this->setName('sonata:page:create-snapshots');

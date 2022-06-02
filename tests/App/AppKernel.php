@@ -66,6 +66,10 @@ final class AppKernel extends Kernel
             new SonataTwigBundle(),
         ];
 
+        if (class_exists(SonataNotificationBundle::class)) {
+            $bundles[] = new SonataNotificationBundle();
+        }
+
         if (class_exists(SonataCoreBundle::class)) {
             $bundles[] = new SonataCoreBundle();
         }
