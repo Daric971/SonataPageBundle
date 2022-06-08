@@ -73,7 +73,7 @@ final class ContainerBlockServiceTest extends BlockServiceTestCase
          ]);
 
         $service->execute($blockContext);
-
+        // TODO: Make new test before when block-bundle will update
         static::assertIsArray($this->templating->parameters['decorator']);
         static::assertArrayHasKey('pre', $this->templating->parameters['decorator']);
         static::assertArrayHasKey('post', $this->templating->parameters['decorator']);
