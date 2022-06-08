@@ -18,19 +18,26 @@ use Sonata\BlockBundle\Meta\Metadata;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * NEXT_MAJOR: Do not extend from `ContainerBlockService` since it will be final.
- *
  * Render children pages.
  *
  * @author Thomas Rabaix <thomas.rabaix@sonata-project.org>
- *
- * @psalm-suppress InvalidExtendClass
- * @phpstan-ignore-next-line
- *
- * @final since sonata-project/page-bundle 3.26
  */
-class ContainerBlockService extends BaseContainerBlockService
+final class ContainerBlockService extends AbstractContainerBlockService
 {
+    private string $name;
+
+    public function __construct(string $name, BaseContainerBlockService $containerBlockService)
+    {
+        parent::__construct($containerBlockService);
+
+        $this->name = $name;
+    }
+
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
     public function configureSettings(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
@@ -43,7 +50,7 @@ class ContainerBlockService extends BaseContainerBlockService
 
     public function getBlockMetadata($code = null)
     {
-        return new Metadata($this->getName(), (null !== $code ? $code : $this->getName()), false, 'SonataPageBundle', [
+        return new Metadata($this->getName(), (null !== $code ? $code : $this->getName()), null, 'SonataPageBundle', [
             'class' => 'fa fa-square-o',
         ]);
     }

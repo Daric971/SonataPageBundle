@@ -23,10 +23,8 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
  * Site Admin controller.
  *
  * @author Thomas Rabaix <thomas.rabaix@sonata-project.org>
- *
- * @final since sonata-project/page-bundle 3.26
  */
-class SiteAdminController extends Controller
+final class SiteAdminController extends Controller
 {
     /**
      * @throws NotFoundHttpException
@@ -63,7 +61,7 @@ class SiteAdminController extends Controller
             return new RedirectResponse($this->admin->generateUrl('edit', ['id' => $object->getId()]));
         }
 
-        return $this->render('@SonataPage/SiteAdmin/create_snapshots.html.twig', [
+        return $this->renderWithExtraParams('@SonataPage/SiteAdmin/create_snapshots.html.twig', [
             'action' => 'snapshots',
             'object' => $object,
         ]);
