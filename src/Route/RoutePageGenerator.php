@@ -25,30 +25,16 @@ use Symfony\Component\Routing\RouterInterface;
  * This is the page generator service from existing routes.
  *
  * @author Vincent Composieux <vincent.composieux@gmail.com>
- *
- * @final since sonata-project/page-bundle 3.26
  */
-class RoutePageGenerator
+final class RoutePageGenerator
 {
-    /**
-     * @var RouterInterface
-     */
-    protected $router;
+    private RouterInterface $router;
 
-    /**
-     * @var PageManagerInterface
-     */
-    protected $pageManager;
+    private PageManagerInterface $pageManager;
 
-    /**
-     * @var DecoratorStrategyInterface
-     */
-    protected $decoratorStrategy;
+    private DecoratorStrategyInterface $decoratorStrategy;
 
-    /**
-     * @var ExceptionListener
-     */
-    protected $exceptionListener;
+    private ExceptionListener $exceptionListener;
 
     /**
      * @param RouterInterface            $router            A Symfony router service
@@ -239,7 +225,7 @@ MSG
      * @param OutputInterface $output  A Symfony console output instance
      * @param string          $message A string message to output
      */
-    protected function writeln(?OutputInterface $output = null, $message): void
+    private function writeln(?OutputInterface $output = null, $message): void
     {
         if ($output instanceof OutputInterface) {
             $output->writeln($message);

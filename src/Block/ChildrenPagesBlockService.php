@@ -26,34 +26,23 @@ use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Templating\EngineInterface;
+use Twig\Environment;
 
 /**
  * Render children pages.
  *
  * @author Thomas Rabaix <thomas.rabaix@sonata-project.org>
- *
- * @final since sonata-project/page-bundle 3.26
  */
-class ChildrenPagesBlockService extends AbstractAdminBlockService
+final class ChildrenPagesBlockService extends AbstractAdminBlockService
 {
-    /**
-     * @var SiteSelectorInterface
-     */
-    protected $siteSelector;
+    private SiteSelectorInterface$siteSelector;
 
-    /**
-     * @var CmsManagerSelectorInterface
-     */
-    protected $cmsManagerSelector;
+    private CmsManagerSelectorInterface $cmsManagerSelector;
 
-    /**
-     * @param string $name
-     */
-    public function __construct($name, EngineInterface $templating, SiteSelectorInterface $siteSelector, CmsManagerSelectorInterface $cmsManagerSelector)
+    public function __construct(string $name, Environment $twig, SiteSelectorInterface $siteSelector, CmsManagerSelectorInterface $cmsManagerSelector)
     {
-        parent::__construct($name, $templating);
-
+        $this->name = $name;
+        $this->twig = $twig; //@phpstan-ignore-line
         $this->siteSelector = $siteSelector;
         $this->cmsManagerSelector = $cmsManagerSelector;
     }
