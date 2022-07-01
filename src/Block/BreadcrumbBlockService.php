@@ -21,31 +21,22 @@ use Sonata\BlockBundle\Meta\Metadata;
 use Sonata\PageBundle\CmsManager\CmsManagerSelectorInterface;
 use Sonata\PageBundle\Model\PageInterface;
 use Sonata\SeoBundle\Block\Breadcrumb\BaseBreadcrumbMenuBlockService;
-use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
+use Twig\Environment;
 
 /**
  * BlockService for homepage breadcrumb.
  *
  * @author Sylvain Deloux <sylvain.deloux@ekino.com>
- *
- * @final since sonata-project/page-bundle 3.26
  */
-class BreadcrumbBlockService extends BaseBreadcrumbMenuBlockService
+final class BreadcrumbBlockService extends BaseBreadcrumbMenuBlockService
 {
-    /**
-     * @var CmsManagerSelectorInterface
-     */
-    protected $cmsSelector;
+    private CmsManagerSelectorInterface $cmsSelector;
 
-    /**
-     * @param string $context
-     * @param string $name
-     */
-    public function __construct($context, $name, EngineInterface $templating, MenuProviderInterface $menuProvider, FactoryInterface $factory, CmsManagerSelectorInterface $cmsSelector)
+    public function __construct(string $context, string $name, Environment $twig, MenuProviderInterface $menuProvider, FactoryInterface $factory, CmsManagerSelectorInterface $cmsSelector)
     {
         $this->cmsSelector = $cmsSelector;
 
-        parent::__construct($context, $name, $templating, $menuProvider, $factory);
+        parent::__construct($context, $name, $twig, $menuProvider, $factory);
     }
 
     public function getName()
@@ -89,12 +80,7 @@ class BreadcrumbBlockService extends BaseBreadcrumbMenuBlockService
         return $menu;
     }
 
-    /**
-     * Return the current Page.
-     *
-     * @return PageInterface
-     */
-    protected function getCurrentPage()
+    private function getCurrentPage(): PageInterface
     {
         $cms = $this->cmsSelector->retrieve();
 
