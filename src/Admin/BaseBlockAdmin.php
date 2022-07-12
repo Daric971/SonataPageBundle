@@ -37,15 +37,9 @@ abstract class BaseBlockAdmin extends AbstractAdmin
      */
     protected $blockManager;
 
-    /**
-     * @var bool
-     */
-    protected $inValidate = false;
+    protected bool $inValidate = false;
 
-    /**
-     * @var array
-     */
-    protected $containerBlockTypes = [];
+    protected array $containerBlockTypes = [];
 
     /**
      * @param BaseBlock $object
@@ -255,12 +249,7 @@ abstract class BaseBlockAdmin extends AbstractAdmin
 
         $resolver = new OptionsResolver();
         // use new interface method whenever possible
-        // NEXT_MAJOR: Remove this check and legacy setDefaultSettings method call
-        if (method_exists($service, 'configureSettings')) {
-            $service->configureSettings($resolver);
-        } else {
-            $service->setDefaultSettings($resolver);
-        }
+        $service->configureSettings($resolver);
 
         try {
             $block->setSettings($resolver->resolve($block->getSettings()));

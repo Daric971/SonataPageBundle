@@ -16,7 +16,7 @@ namespace Sonata\PageBundle\Admin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\ProxyQueryInterface;
 use Sonata\AdminBundle\Form\FormMapper;
-use Sonata\BlockBundle\Block\BlockServiceInterface;
+use Sonata\BlockBundle\Block\Service\BlockServiceInterface;
 use Sonata\BlockBundle\Block\Service\EditableBlockService;
 use Sonata\BlockBundle\Model\BlockInterface;
 use Sonata\PageBundle\Entity\BaseBlock;
@@ -26,22 +26,20 @@ use Sonata\PageBundle\Mapper\PageFormMapper;
  * Admin class for shared Block model.
  *
  * @author Romain Mouillard <romain.mouillard@gmail.com>
- *
- * @final since sonata-project/page-bundle 3.26
  */
-class SharedBlockAdmin extends BaseBlockAdmin
+final class SharedBlockAdmin extends BaseBlockAdmin
 {
     /**
      * @var string
      */
     protected $classnameLabel = 'shared_block';
 
-    public function getBaseRoutePattern()
+    public function getBaseRoutePattern(): string
     {
         return sprintf('%s/%s', parent::getBaseRoutePattern(), 'shared');
     }
 
-    public function getBaseRouteName()
+    public function getBaseRouteName(): string
     {
         return sprintf('%s/%s', parent::getBaseRouteName(), 'shared');
     }

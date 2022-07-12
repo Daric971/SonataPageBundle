@@ -53,7 +53,7 @@ final class SharedBlockBlockService extends AbstractBlockService
         $this->sharedBlockAdmin = $sharedBlockAdmin;
     }
 
-    public function execute(BlockContextInterface $blockContext, ?Response $response = null)
+    public function execute(BlockContextInterface $blockContext, ?Response $response = null): Response
     {
         $block = $blockContext->getBlock();
 
@@ -92,7 +92,7 @@ final class SharedBlockBlockService extends AbstractBlockService
         ]);
     }
 
-    public function getName()
+    public function getName(): string
     {
         return 'Shared Block';
     }

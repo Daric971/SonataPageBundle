@@ -17,21 +17,15 @@ use Sonata\PageBundle\Page\TemplateManagerInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 /**
  * Select a template.
  *
  * @author Thomas Rabaix <thomas.rabaix@sonata-project.org>
- *
- * @final since sonata-project/page-bundle 3.26
  */
-class TemplateChoiceType extends AbstractType
+final class TemplateChoiceType extends AbstractType
 {
-    /**
-     * @var TemplateManagerInterface
-     */
-    protected $manager;
+    protected TemplateManagerInterface $manager;
 
     public function __construct(TemplateManagerInterface $manager)
     {
@@ -48,20 +42,7 @@ class TemplateChoiceType extends AbstractType
         $resolver->setDefaults($defaults);
     }
 
-    /**
-     * NEXT_MAJOR: remove this method.
-     *
-     * @deprecated since sonata-project/page-bundle 3.14, to be removed in version 4.0.
-     */
-    public function setDefaultOptions(OptionsResolverInterface $resolver): void
-    {
-        $this->configureOptions($resolver);
-    }
-
-    /**
-     * @return string[]
-     */
-    public function getTemplates()
+    public function getTemplates(): array
     {
         $templates = [];
         foreach ($this->manager->getAll() as $code => $template) {
@@ -71,23 +52,13 @@ class TemplateChoiceType extends AbstractType
         return $templates;
     }
 
-    public function getParent()
+    public function getParent(): string
     {
         return ChoiceType::class;
     }
 
-    public function getBlockPrefix()
+    public function getBlockPrefix(): string
     {
         return 'sonata_page_template';
-    }
-
-    /**
-     * NEXT_MAJOR: remove this method.
-     *
-     * @deprecated since sonata-project/page-bundle 3.14, to be removed in version 4.0.
-     */
-    public function getName()
-    {
-        return $this->getBlockPrefix();
     }
 }
