@@ -22,20 +22,15 @@ abstract class BasePageService implements PageServiceInterface
 {
     /**
      * Page service name used in the admin.
-     *
-     * @var string
      */
-    protected $name;
+    protected string $name;
 
-    /**
-     * @param string $name Page service name
-     */
-    public function __construct($name)
+    public function __construct(string $name)
     {
         $this->name = $name;
     }
 
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }

@@ -34,12 +34,12 @@ final class SharedBlockAdmin extends BaseBlockAdmin
      */
     protected $classnameLabel = 'shared_block';
 
-    public function getBaseRoutePattern()
+    public function getBaseRoutePattern(): string
     {
         return sprintf('%s/%s', parent::getBaseRoutePattern(), 'shared');
     }
 
-    public function getBaseRouteName()
+    public function getBaseRouteName(): string
     {
         return sprintf('%s/%s', parent::getBaseRouteName(), 'shared');
     }

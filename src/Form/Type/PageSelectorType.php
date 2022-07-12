@@ -20,7 +20,6 @@ use Sonata\PageBundle\Model\SiteInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 /**
  * Select a page.
@@ -29,10 +28,7 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
  */
 final class PageSelectorType extends AbstractType
 {
-    /**
-     * @var PageManagerInterface
-     */
-    protected $manager;
+    private PageManagerInterface $manager;
 
     public function __construct(PageManagerInterface $manager)
     {
@@ -59,15 +55,12 @@ final class PageSelectorType extends AbstractType
         ]);
     }
 
-    public function setDefaultOptions(OptionsResolverInterface $resolver): void
+    public function setDefaultOptions(OptionsResolver $resolver): void
     {
         $this->configureOptions($resolver);
     }
 
-    /**
-     * @return array
-     */
-    public function getChoices(Options $options)
+    public function getChoices(Options $options): array
     {
         if (!$options['site'] instanceof SiteInterface) {
             return [];
@@ -123,27 +116,22 @@ final class PageSelectorType extends AbstractType
         return $choices;
     }
 
-    public function getParent()
+    public function getParent(): string
     {
         return ModelType::class;
     }
 
-    public function getBlockPrefix()
+    public function getBlockPrefix(): string
     {
         return 'sonata_page_selector';
     }
 
-    public function getName()
+    public function getName(): string
     {
         return $this->getBlockPrefix();
     }
 
-    /**
-     * @param PageInterface $currentPage
-     * @param array         $choices
-     * @param int           $level
-     */
-    private function childWalker(PageInterface $page, ?PageInterface $currentPage = null, &$choices, $level = 1): void
+    private function childWalker(PageInterface $page, ?PageInterface $currentPage = null, array $choices, int $level = 1): void
     {
         foreach ($page->getChildren() as $child) {
             if ($currentPage && $currentPage->getId() === $child->getId()) {

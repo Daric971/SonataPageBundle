@@ -28,23 +28,19 @@ use Symfony\Component\HttpFoundation\Response;
  */
 final class DefaultPageService extends BasePageService
 {
-    /**
-     * @var TemplateManagerInterface
-     */
-    protected $templateManager;
+    protected TemplateManagerInterface $templateManager;
 
-    /**
-     * @var SeoPageInterface
-     */
-    protected $seoPage;
+    protected SeoPageInterface $seoPage;
 
     /**
      * @param string                   $name            Page service name
      * @param TemplateManagerInterface $templateManager Template manager
      * @param SeoPageInterface         $seoPage         SEO page object
      */
-    public function __construct($name, TemplateManagerInterface $templateManager, ?SeoPageInterface $seoPage = null)
+    public function __construct(string $name, TemplateManagerInterface $templateManager, ?SeoPageInterface $seoPage = null)
     {
+        parent::__construct($name);
+
         $this->name = $name;
         $this->templateManager = $templateManager;
         $this->seoPage = $seoPage;
@@ -54,9 +50,7 @@ final class DefaultPageService extends BasePageService
     {
         $this->updateSeoPage($page);
 
-        $response = $this->templateManager->renderResponse($page->getTemplateCode(), $parameters, $response);
-
-        return $response;
+        return $this->templateManager->renderResponse($page->getTemplateCode(), $parameters, $response);
     }
 
     /**

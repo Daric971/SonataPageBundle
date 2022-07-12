@@ -17,7 +17,6 @@ use Sonata\PageBundle\Page\PageServiceManagerInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 /**
  * Select a page type.
@@ -26,10 +25,7 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
  */
 final class PageTypeChoiceType extends AbstractType
 {
-    /**
-     * @var PageServiceManagerInterface
-     */
-    protected $manager;
+    protected PageServiceManagerInterface $manager;
 
     public function __construct(PageServiceManagerInterface $manager)
     {
@@ -47,19 +43,9 @@ final class PageTypeChoiceType extends AbstractType
     }
 
     /**
-     * NEXT_MAJOR: remove this method.
-     *
-     * @deprecated since sonata-project/page-bundle 3.14, to be removed in version 4.0.
-     */
-    public function setDefaultOptions(OptionsResolverInterface $resolver): void
-    {
-        $this->configureOptions($resolver);
-    }
-
-    /**
      * @return string[]
      */
-    public function getPageTypes()
+    public function getPageTypes(): array
     {
         $services = $this->manager->getAll();
         $types = [];
@@ -72,23 +58,13 @@ final class PageTypeChoiceType extends AbstractType
         return $types;
     }
 
-    public function getParent()
+    public function getParent(): string
     {
         return ChoiceType::class;
     }
 
-    public function getBlockPrefix()
+    public function getBlockPrefix(): string
     {
         return 'sonata_page_type_choice';
-    }
-
-    /**
-     * NEXT_MAJOR: remove this method.
-     *
-     * @deprecated since sonata-project/page-bundle 3.14, to be removed in version 4.0.
-     */
-    public function getName()
-    {
-        return $this->getBlockPrefix();
     }
 }
